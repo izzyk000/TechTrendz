@@ -156,7 +156,14 @@ if uploaded_file is not None:
             correlation_matrix = df.drop(['Customer ID'], axis=1).select_dtypes(include=['number']).corr()
             plt.figure(figsize=(10, 8))
             sns.heatmap(correlation_matrix, annot=True, cmap=custom_cmap, center=0, vmin=-1, vmax=1)
-            st.pyplot(plt)           
+            # Set the title for the heatmap with Plotly style formatting
+            title = 'Correlation Heatmap of Customer Features'
+            plt.text(-0.5, 1.1, title, fontsize=14.5, fontweight='bold', va='top', ha='left', transform=plt.gca().transAxes)
+            # Adjust layout to add more top padding
+            plt.subplots_adjust(top=0.85)  # Decrease this value to increase the top padding
+
+            # Display the plot in Streamlit
+            st.pyplot(plt)
             with st.expander("See detailed analysis of Correlation Heatmap"):
                 st.markdown("""
                 #### Correlation Heatmap Analysis
@@ -173,3 +180,4 @@ if uploaded_file is not None:
                     - **Addressing Gaps**: Negative correlations might highlight opportunities to improve engagement or sales strategies for certain demographics or customer behaviors.
                     - **Model Refinement**: Identifying key correlating factors can help in refining the predictive model for better accuracy and effectiveness.
                 """)
+
